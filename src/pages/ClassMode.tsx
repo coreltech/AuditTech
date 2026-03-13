@@ -183,29 +183,29 @@ export function ClassMode() {
     };
 
     return (
-        <div className="max-w-4xl mx-auto">
-            <div className="mb-8">
-                <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Modo Clase</h1>
-                <p className="text-slate-500 mt-1">Control de asistencia rápido y cálculo automático de honorarios.</p>
+        <div className="max-w-4xl mx-auto px-1 md:px-0">
+            <div className="mb-6 md:mb-8">
+                <h1 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">Modo Clase</h1>
+                <p className="text-sm text-slate-500 mt-1">Control de asistencia rápido y cálculo de honorarios.</p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="flex flex-col lg:flex-row gap-6 md:gap-8">
                 {/* Columna Izquierda / Central: Selección y Lista */}
-                <div className="lg:col-span-2 space-y-6">
-                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="flex-1 space-y-6">
+                    <div className="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <div className="flex flex-col gap-4">
                             <div className="space-y-3">
-                                <label className="block text-sm font-semibold text-slate-700">
-                                    Selecciona el curso:
+                                <label className="block text-sm font-bold text-slate-700 uppercase ml-1">
+                                    Curso:
                                 </label>
                                 <div className="relative">
                                     <BookOpenCheck className="w-5 h-5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                                     <select
-                                        className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl appearance-none font-medium text-slate-700 outline-none focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500/20 shadow-sm transition-all cursor-pointer text-sm"
+                                        className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl appearance-none font-semibold text-slate-700 outline-none focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500/20 shadow-sm transition-all cursor-pointer text-sm"
                                         value={selectedCourseId}
                                         onChange={(e) => setSelectedCourseId(e.target.value)}
                                     >
-                                        <option value="" disabled>Mis Cursos Activos...</option>
+                                        <option value="" disabled>Seleccionar curso...</option>
                                         {courses.map(course => (
                                             <option key={course.id} value={course.id}>
                                                 {course.name} {course.day_of_week ? `(${course.day_of_week})` : ''}
@@ -215,57 +215,57 @@ export function ClassMode() {
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-2 gap-3">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div className="space-y-3">
-                                    <label className="block text-sm font-semibold text-slate-700">Fecha de Clase:</label>
+                                    <label className="block text-sm font-bold text-slate-700 uppercase ml-1">Fecha:</label>
                                     <div className="relative">
                                         <CalendarIcon className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                                         <input
                                             type="date"
                                             value={classDate}
                                             onChange={(e) => setClassDate(e.target.value)}
-                                            className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl font-medium text-slate-700 outline-none focus:border-blue-500 focus:bg-white text-sm"
+                                            className="w-full pl-9 pr-3 py-3 bg-slate-50 border border-slate-200 rounded-xl font-semibold text-slate-700 outline-none focus:border-blue-500 focus:bg-white text-sm"
                                         />
                                     </div>
                                 </div>
                                 <div className="space-y-3">
-                                    <label className="block text-sm font-semibold text-slate-700">Hora:</label>
+                                    <label className="block text-sm font-bold text-slate-700 uppercase ml-1">Hora:</label>
                                     <div className="relative">
                                         <Clock className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                                         <input
                                             type="time"
                                             value={classTime}
                                             onChange={(e) => setClassTime(e.target.value)}
-                                            className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl font-medium text-slate-700 outline-none focus:border-blue-500 focus:bg-white text-sm"
+                                            className="w-full pl-9 pr-3 py-3 bg-slate-50 border border-slate-200 rounded-xl font-semibold text-slate-700 outline-none focus:border-blue-500 focus:bg-white text-sm"
                                         />
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="mt-4 space-y-3">
-                            <label className="block text-sm font-semibold text-slate-700">Contenido Dictado:</label>
+                        <div className="mt-6 space-y-3">
+                            <label className="block text-sm font-bold text-slate-700 uppercase ml-1">Contenido Dictado:</label>
                             <div className="relative">
-                                <FileText className="w-5 h-5 text-slate-400 absolute left-3 top-3" />
+                                <FileText className="w-5 h-5 text-slate-400 absolute left-3 top-3.5" />
                                 <textarea
-                                    placeholder="Ej. Introducción a componentes de React y Props..."
+                                    placeholder="¿Qué contenido se dio en esta clase?"
                                     value={classContent}
                                     onChange={(e) => setClassContent(e.target.value)}
-                                    className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl font-medium text-slate-700 outline-none focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500/20 shadow-sm transition-all min-h-[80px] text-sm"
+                                    className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl font-semibold text-slate-700 outline-none focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500/20 shadow-sm transition-all min-h-[100px] text-sm"
                                 />
                             </div>
                         </div>
                     </div>
 
                     {selectedCourseId && (
-                        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                            <div className="p-4 border-b border-slate-100 bg-slate-50">
-                                <h2 className="font-semibold text-slate-800">Lista de Asistencia (Activos)</h2>
+                        <div className="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+                            <div className="p-4 px-6 border-b border-slate-100 bg-slate-50">
+                                <h2 className="font-bold text-slate-800 text-sm uppercase tracking-wider">Lista de Asistencia</h2>
                             </div>
                             {loading ? (
-                                <div className="p-8 text-center text-slate-500">Cargando alumnos...</div>
+                                <div className="p-12 text-center text-slate-500 font-medium italic">Cargando alumnos...</div>
                             ) : students.length === 0 ? (
-                                <div className="p-8 text-center text-slate-500">
+                                <div className="p-12 text-center text-slate-500">
                                     No hay alumnos activos inscritos en este curso.
                                 </div>
                             ) : (
@@ -276,23 +276,25 @@ export function ClassMode() {
                                             <div
                                                 key={student.id}
                                                 onClick={() => toggleAttendance(student.id)}
-                                                className={`p-4 flex items-center justify-between cursor-pointer transition-colors ${attended ? 'bg-blue-50/50 hover:bg-blue-50' : 'hover:bg-slate-50'
+                                                className={`p-4 px-6 flex items-center justify-between cursor-pointer transition-all active:bg-blue-100 ${attended ? 'bg-blue-50/50 hover:bg-blue-50' : 'hover:bg-slate-50'
                                                     }`}
                                             >
-                                                <div className="flex items-center gap-3">
-                                                    <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${attended ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-slate-400'
+                                                <div className="flex items-center gap-4">
+                                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-xs shadow-sm ${attended ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-400'
                                                         }`}>
                                                         {student.name.substring(0, 2).toUpperCase()}
                                                     </div>
-                                                    <span className={`font-medium ${attended ? 'text-slate-900' : 'text-slate-500 line-through'}`}>
+                                                    <span className={`font-bold text-sm ${attended ? 'text-slate-900' : 'text-slate-400 line-through decoration-slate-300'}`}>
                                                         {student.name}
                                                     </span>
                                                 </div>
-                                                <div>
+                                                <div className="shrink-0">
                                                     {attended ? (
-                                                        <CheckCircle2 className="w-6 h-6 text-blue-600 drop-shadow-sm" />
+                                                        <div className="bg-blue-100 p-1 rounded-full text-blue-600">
+                                                            <CheckCircle2 className="w-6 h-6" />
+                                                        </div>
                                                     ) : (
-                                                        <Circle className="w-6 h-6 text-slate-300" />
+                                                        <Circle className="w-6 h-6 text-slate-200" />
                                                     )}
                                                 </div>
                                             </div>
@@ -305,38 +307,43 @@ export function ClassMode() {
                 </div>
 
                 {/* Columna Derecha: Panel de Acción y Cálculos */}
-                <div className="lg:col-span-1">
-                    <div className="bg-slate-900 rounded-3xl p-6 text-white shadow-xl sticky top-8">
-                        <h3 className="text-slate-400 font-medium text-sm mb-4 uppercase tracking-wider">Resumen de Clase</h3>
+                <div className="w-full lg:w-80 shrink-0">
+                    <div className="bg-slate-900 rounded-3xl p-6 md:p-8 text-white shadow-xl lg:sticky lg:top-8 border border-white/5">
+                        <h3 className="text-slate-400 font-bold text-[10px] uppercase tracking-[0.2em] mb-6">Resumen de Clase</h3>
 
-                        <div className="mb-6">
-                            <div className="flex items-end gap-2 mb-1">
-                                <span className="text-4xl font-bold tracking-tight">${amountGenerated.toFixed(2)}</span>
-                                <span className="text-slate-400 font-medium pb-1">USD</span>
+                        <div className="mb-8">
+                            <div className="flex items-baseline gap-2 mb-1">
+                                <span className="text-5xl font-black tracking-tighter text-blue-400">${amountGenerated.toFixed(2)}</span>
+                                <span className="text-slate-500 font-bold text-sm italic">USD</span>
                             </div>
-                            <p className="text-slate-400 text-sm">Ganancia estimada por hoy</p>
+                            <p className="text-slate-400 text-xs font-medium">Honorarios generados hoy</p>
                         </div>
 
-                        <div className="space-y-3 bg-slate-800/50 rounded-2xl p-4 mb-8">
-                            <div className="flex justify-between items-center text-sm">
-                                <span className="text-slate-300">Asistentes:</span>
-                                <span className="font-semibold">{attendeesCount} de {students.length}</span>
+                        <div className="space-y-4 bg-white/5 rounded-2xl p-5 mb-8 border border-white/5">
+                            <div className="flex justify-between items-center text-xs">
+                                <span className="text-slate-400">Alumnos:</span>
+                                <span className="font-bold text-slate-100">{attendeesCount} de {students.length}</span>
                             </div>
-                            <div className="flex justify-between items-center text-sm">
-                                <span className="text-slate-300">Regla aplicada:</span>
-                                <span className="font-semibold text-blue-400">
-                                    {attendeesCount >= 2 ? '$4.5 x alumno' : (attendeesCount === 1 ? 'Tarifa única ($5.5)' : 'Tarifa base ($5.5)')}
+                            <div className="flex justify-between items-center text-xs">
+                                <span className="text-slate-400">Regla:</span>
+                                <span className="font-bold text-blue-400">
+                                    {attendeesCount >= 2 ? '$4.5 x c/u' : (attendeesCount === 1 ? '$5.5 única' : 'Base $5.5')}
                                 </span>
                             </div>
                         </div>
 
-                        <div className="space-y-3">
+                        <div className="space-y-4">
                             <button
                                 onClick={() => handleSaveClass('normal')}
                                 disabled={saving || students.length === 0}
-                                className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 disabled:bg-slate-800 disabled:text-slate-500 text-white py-3.5 rounded-xl font-semibold transition-all shadow-lg shadow-blue-900/20 active:scale-[0.98]"
+                                className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 disabled:bg-slate-800 disabled:text-slate-500 text-white py-4 rounded-xl font-bold transition-all shadow-lg active:scale-[0.98] text-sm"
                             >
-                                {saving ? 'Guardando...' : (
+                                {saving ? (
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                                        <span>Guardando...</span>
+                                    </div>
+                                ) : (
                                     <>
                                         <Save className="w-5 h-5" /> Registrar Clase
                                     </>
@@ -346,17 +353,16 @@ export function ClassMode() {
                             <button
                                 onClick={() => handleSaveClass('feriado')}
                                 disabled={saving || students.length === 0}
-                                className="w-full flex items-center justify-center gap-2 bg-transparent border border-slate-700 hover:border-slate-500 disabled:border-slate-800 disabled:text-slate-600 text-slate-300 py-3 rounded-xl font-medium transition-all active:scale-[0.98]"
+                                className="w-full flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 disabled:opacity-50 text-slate-300 py-3.5 rounded-xl font-bold transition-all active:scale-[0.98] text-sm"
                             >
                                 <CalendarOff className="w-4 h-4" /> Cancelada / Feriado
                             </button>
                         </div>
 
-                        <div className="mt-6 flex gap-2 items-start bg-blue-950/30 p-3 rounded-xl border border-blue-900/30">
+                        <div className="mt-8 flex gap-3 items-start bg-blue-500/10 p-4 rounded-2xl border border-blue-500/10">
                             <AlertTriangle className="w-4 h-4 text-blue-400 shrink-0 mt-0.5" />
-                            <p className="text-xs text-blue-200/70 leading-relaxed">
-                                Si asisten 0 alumnos y registras clase normal, ganarás $5.5 (Regla asistencia sin quorum).
-                                Si marcas "Feriado", ganarás $0 y la clase se extiende una semana más.
+                            <p className="text-[11px] text-blue-300/80 leading-relaxed font-medium">
+                                El sistema aplica automáticamente las "Reglas de Oro" basadas en la asistencia actual.
                             </p>
                         </div>
                     </div>

@@ -181,21 +181,21 @@ export function Students() {
 
     return (
         <div className="max-w-6xl mx-auto">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-8">
                 <div>
-                    <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Alumnos</h1>
-                    <p className="text-slate-500 mt-1">Inscribe alumnos y gestiona sus bajas por curso.</p>
+                    <h1 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">Alumnos</h1>
+                    <p className="text-sm text-slate-500 mt-1">Inscribe alumnos y gestiona sus bajas por curso.</p>
                 </div>
 
-                <div className="flex items-center gap-3 w-full sm:w-auto">
-                    <div className="relative flex-1 sm:w-64">
+                <div className="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
+                    <div className="relative w-full sm:w-64">
                         <BookOpen className="w-5 h-5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                         <select
-                            className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl appearance-none font-medium text-slate-700 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 shadow-sm transition-all cursor-pointer"
+                            className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl appearance-none font-semibold text-slate-700 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 shadow-sm transition-all cursor-pointer text-sm"
                             value={selectedCourseId}
                             onChange={(e) => setSelectedCourseId(e.target.value)}
                         >
-                            <option value="" disabled>Selecciona un curso...</option>
+                            <option value="" disabled>Seleccionar curso...</option>
                             {courses.map(course => (
                                 <option key={course.id} value={course.id}>
                                     {course.name} {course.status === 'cerrado' ? '(Cerrado)' : ''}
@@ -207,10 +207,10 @@ export function Students() {
                     <button
                         disabled={!selectedCourseId}
                         onClick={() => setIsModalOpen(true)}
-                        className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-300 disabled:cursor-not-allowed text-white px-5 py-2.5 rounded-xl font-medium transition-all shadow-sm hover:shadow-md active:scale-[0.98] shrink-0"
+                        className="w-full sm:w-auto flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-300 disabled:cursor-not-allowed text-white px-5 py-2.5 rounded-xl font-semibold transition-all shadow-sm hover:shadow-md active:scale-[0.98] text-sm"
                     >
                         <Plus className="w-5 h-5" />
-                        <span className="hidden sm:inline">Nuevo Alumno</span>
+                        <span>Nuevo Alumno</span>
                     </button>
                 </div>
             </div>
@@ -234,56 +234,50 @@ export function Students() {
                 ) : (
                     <div className="divide-y divide-slate-100">
                         {students.map(student => (
-                            <div key={student.id} className="p-5 hover:bg-slate-50 transition-colors flex items-center justify-between">
-                                <div className="flex items-center gap-4">
-                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm ${student.status === 'activo' ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-slate-500'
+                            <div key={student.id} className="p-4 md:p-5 hover:bg-slate-50 transition-colors flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-100 last:border-0">
+                                <div className="flex items-start gap-4 flex-1 min-w-0">
+                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm shrink-0 ${student.status === 'activo' ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-slate-500'
                                         }`}>
                                         {student.name.substring(0, 2).toUpperCase()}
                                     </div>
-                                    <div>
-                                        <h3 className={`text-base font-semibold ${student.status === 'activo' ? 'text-slate-900' : 'text-slate-500 line-through'}`}>
+                                    <div className="min-w-0 flex-1">
+                                        <h3 className={`text-base font-bold truncate ${student.status === 'activo' ? 'text-slate-900' : 'text-slate-500 line-through'}`}>
                                             {student.name}
                                         </h3>
-                                        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1">
+                                        <div className="flex flex-wrap items-center gap-y-1.5 gap-x-3 mt-1.5">
                                             <span className={`text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded ${student.status === 'activo' ? 'bg-green-50 text-green-600 border border-green-100' : 'bg-red-50 text-red-500 border border-red-100'
                                                 }`}>
                                                 {student.status}
                                             </span>
                                             {student.cedula && (
-                                                <div className="flex items-center gap-1 text-xs text-slate-500">
+                                                <div className="flex items-center gap-1 text-[11px] text-slate-500">
                                                     <IdCard className="w-3 h-3 text-slate-400" />
                                                     {student.cedula}
                                                 </div>
                                             )}
                                             {student.phone && (
-                                                <div className="flex items-center gap-1 text-xs text-slate-500">
+                                                <div className="flex items-center gap-1 text-[11px] text-slate-500">
                                                     <Phone className="w-3 h-3 text-slate-400" />
-                                                    {student.phone}
-                                                </div>
-                                            )}
-                                            {student.email && (
-                                                <div className="flex items-center gap-1 text-xs text-slate-500">
-                                                    <Mail className="w-3 h-3 text-slate-400" />
-                                                    {student.email}
+                                                    <span className="truncate">{student.phone}</span>
                                                 </div>
                                             )}
                                         </div>
                                     </div>
                                 </div>
 
-                                <div className="flex items-center gap-2">
+                                <div className="flex items-center gap-2 w-full sm:w-auto mt-2 sm:mt-0 pt-3 sm:pt-0 border-t sm:border-t-0 border-slate-50">
                                     <button
                                         onClick={() => openEditModal(student)}
-                                        className="flex items-center justify-center w-10 h-10 rounded-xl text-blue-500 hover:bg-blue-50 transition-all"
+                                        className="flex-1 sm:w-10 sm:h-10 p-2.5 sm:p-0 flex justify-center items-center rounded-xl text-blue-500 bg-blue-50 sm:bg-transparent hover:bg-blue-100 sm:hover:bg-blue-50 transition-all"
                                         title="Editar alumno"
                                     >
                                         <Pencil className="w-5 h-5" />
                                     </button>
                                     <button
                                         onClick={() => handleRetireStudent(student.id, student.status)}
-                                        className={`flex items-center justify-center w-10 h-10 rounded-xl transition-all ${student.status === 'activo'
-                                            ? 'text-amber-500 hover:bg-amber-50'
-                                            : 'text-green-600 hover:bg-green-50'
+                                        className={`flex-1 sm:w-10 sm:h-10 p-2.5 sm:p-0 flex justify-center items-center rounded-xl transition-all ${student.status === 'activo'
+                                            ? 'text-amber-500 bg-amber-50 sm:bg-transparent hover:bg-amber-100 sm:hover:bg-amber-50'
+                                            : 'text-green-600 bg-green-50 sm:bg-transparent hover:bg-green-100 sm:hover:bg-green-50'
                                             }`}
                                         title={student.status === 'activo' ? 'Dar de baja' : 'Reactivar'}
                                     >
@@ -291,7 +285,7 @@ export function Students() {
                                     </button>
                                     <button
                                         onClick={() => handleDeleteStudent(student.id)}
-                                        className="flex items-center justify-center w-10 h-10 rounded-xl text-red-500 hover:bg-red-50 transition-all"
+                                        className="flex-1 sm:w-10 sm:h-10 p-2.5 sm:p-0 flex justify-center items-center rounded-xl text-red-500 bg-red-50 sm:bg-transparent hover:bg-red-100 sm:hover:bg-red-50 transition-all"
                                         title="Eliminar alumno"
                                     >
                                         <Trash2 className="w-5 h-5" />

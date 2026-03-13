@@ -203,13 +203,13 @@ export function Finances() {
     };
 
     return (
-        <div className="max-w-6xl mx-auto space-y-8">
+        <div className="max-w-6xl mx-auto space-y-6 md:space-y-8 px-1 md:px-0">
             <div>
-                <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Finanzas y Pagos</h1>
-                <p className="text-slate-500 mt-1">Genera cortes quincenales, registra pagos de la academia y descarga reportes.</p>
+                <h1 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">Finanzas y Pagos</h1>
+                <p className="text-sm text-slate-500 mt-1">Genera cortes quincenales y registra pagos de la academia.</p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
 
                 {/* Panel Izquierdo: Acciones Financieras */}
                 <div className="space-y-6">
@@ -303,9 +303,9 @@ export function Finances() {
                 <div className="space-y-6">
 
                     {/* Historial de Liquidaciones */}
-                    <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden flex flex-col h-[400px]">
-                        <div className="p-5 border-b border-slate-100 bg-slate-50 shrink-0">
-                            <h3 className="font-bold text-slate-800">Historial de Liquidaciones</h3>
+                    <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden flex flex-col h-[450px]">
+                        <div className="p-4 md:p-5 border-b border-slate-100 bg-slate-50 shrink-0">
+                            <h3 className="font-bold text-slate-800 uppercase text-xs tracking-wider">Historial de Liquidaciones</h3>
                         </div>
                         <div className="p-0 overflow-y-auto flex-1">
                             {loading ? (
@@ -315,36 +315,37 @@ export function Finances() {
                             ) : (
                                 <ul className="divide-y divide-slate-100">
                                     {settlements.map(settlement => (
-                                        <li key={settlement.id} className="p-4 hover:bg-slate-50 transition-colors flex justify-between items-center group">
-                                            <div>
+                                        <li key={settlement.id} className="p-4 hover:bg-slate-50 transition-colors flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4 group">
+                                            <div className="w-full sm:w-auto">
                                                 <div className="flex items-center gap-2 mb-1">
-                                                    <span className="font-semibold text-slate-900 text-sm">Corte del</span>
-                                                    <span className="text-sm text-slate-600 bg-slate-100 px-2 py-0.5 rounded-md font-medium">
-                                                        {format(parseISO(settlement.date), "dd/MMM/yyyy", { locale: es })}
+                                                    <span className="font-bold text-slate-900 text-sm">Corte del</span>
+                                                    <span className="text-xs text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-md font-bold">
+                                                        {format(parseISO(settlement.date), "dd/MMM/yy", { locale: es })}
                                                     </span>
                                                 </div>
-                                                <p className="text-xs text-slate-500 font-medium">Tasa BCV: {Number(settlement.bcv_rate).toFixed(2)} Bs</p>
+                                                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-tight">Tasa BCV: {Number(settlement.bcv_rate).toFixed(2)} Bs</p>
                                             </div>
-                                            <div className="text-right flex items-center gap-4">
-                                                <div>
-                                                    <p className="font-bold text-slate-900">${Number(settlement.amount_usd).toFixed(2)}</p>
-                                                    <p className="text-xs text-slate-500">{Number(settlement.amount_bs).toFixed(2)} Bs</p>
+                                            <div className="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-3 md:gap-4 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-50">
+                                                <div className="text-left sm:text-right">
+                                                    <p className="font-black text-slate-900 text-sm">${Number(settlement.amount_usd).toFixed(1)}</p>
+                                                    <p className="text-[10px] text-slate-400 font-medium">{Number(settlement.amount_bs).toLocaleString()} Bs</p>
                                                 </div>
-                                                {/* Botón para reporte PDF preparado para Fase 5 */}
-                                                <button
-                                                    onClick={() => generateSettlementPDF(settlement)}
-                                                    className="p-2 text-indigo-600 hover:bg-white rounded-lg transition-colors border border-indigo-100 hover:border-indigo-200 shadow-sm"
-                                                    title="Descargar Recibo en PDF"
-                                                >
-                                                    <Download className="w-5 h-5" />
-                                                </button>
-                                                <button
-                                                    onClick={() => handleDeleteSettlement(settlement.id)}
-                                                    className="p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100"
-                                                    title="Eliminar liquidación"
-                                                >
-                                                    <Trash2 className="w-4 h-4" />
-                                                </button>
+                                                <div className="flex items-center gap-1.5">
+                                                    <button
+                                                        onClick={() => generateSettlementPDF(settlement)}
+                                                        className="p-2.5 text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-xl transition-colors border border-indigo-100 shadow-sm"
+                                                        title="PDF"
+                                                    >
+                                                        <Download className="w-4 h-4" />
+                                                    </button>
+                                                    <button
+                                                        onClick={() => handleDeleteSettlement(settlement.id)}
+                                                        className="p-2.5 text-red-400 bg-red-50 hover:text-red-600 rounded-xl transition-colors opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
+                                                        title="Eliminar"
+                                                    >
+                                                        <Trash2 className="w-4 h-4" />
+                                                    </button>
+                                                </div>
                                             </div>
                                         </li>
                                     ))}
@@ -354,37 +355,44 @@ export function Finances() {
                     </div>
 
                     {/* Historial de Pagos */}
-                    <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden flex flex-col h-[300px]">
-                        <div className="p-5 border-b border-slate-100 bg-slate-50 shrink-0">
-                            <h3 className="font-bold text-slate-800">Últimos Pagos Recibidos</h3>
+                    <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden flex flex-col h-[350px]">
+                        <div className="p-4 border-b border-slate-100 bg-slate-50 shrink-0">
+                            <h3 className="font-bold text-slate-800 uppercase text-xs tracking-wider">Abonos Recibidos</h3>
                         </div>
                         <div className="p-0 overflow-y-auto flex-1">
                             {loading ? (
-                                <div className="p-8 text-center text-slate-400">Cargando...</div>
+                                <div className="p-8 text-center text-slate-400 italic">Cargando...</div>
                             ) : payments.length === 0 ? (
                                 <div className="p-8 text-center text-slate-400">Aún no hay pagos registrados.</div>
                             ) : (
                                 <ul className="divide-y divide-slate-100">
                                     {payments.map(payment => (
-                                        <li key={payment.id} className="p-4 hover:bg-slate-50 transition-colors flex justify-between items-center">
+                                        <li key={payment.id} className="p-4 hover:bg-slate-50 transition-colors flex justify-between items-center group">
                                             <div className="flex items-center gap-3">
-                                                <div className="p-2 bg-emerald-100 text-emerald-600 rounded-lg">
+                                                <div className="p-2 bg-emerald-50 text-emerald-600 rounded-lg border border-emerald-100 shadow-sm">
                                                     <SendToBack className="w-4 h-4" />
                                                 </div>
-                                                <span className="text-sm font-medium text-slate-600">
-                                                    Abono en fecha: <span className="font-semibold text-slate-900">{format(parseISO(payment.date), "dd/MM/yyyy")}</span>
-                                                </span>
+                                                <div className="flex flex-col">
+                                                    <span className="text-xs font-bold text-slate-900">
+                                                        Abono de Academia
+                                                    </span>
+                                                    <span className="text-[10px] text-slate-400 font-medium">
+                                                        {format(parseISO(payment.date), "dd/MM/yyyy")}
+                                                    </span>
+                                                </div>
                                             </div>
-                                            <div className="text-right font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full text-sm">
-                                                + ${Number(payment.amount_usd).toFixed(2)}
+                                            <div className="flex items-center gap-3">
+                                                <div className="text-right font-black text-emerald-600 bg-emerald-50 px-2 py-1 rounded-lg text-xs border border-emerald-100">
+                                                    +${Number(payment.amount_usd).toFixed(1)}
+                                                </div>
+                                                <button
+                                                    onClick={() => handleDeletePayment(payment.id)}
+                                                    className="p-2 text-red-300 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
+                                                    title="Eliminar pago"
+                                                >
+                                                    <Trash2 className="w-4 h-4" />
+                                                </button>
                                             </div>
-                                            <button
-                                                onClick={() => handleDeletePayment(payment.id)}
-                                                className="p-2 text-slate-300 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100 ml-2"
-                                                title="Eliminar pago"
-                                            >
-                                                <Trash2 className="w-4 h-4" />
-                                            </button>
                                         </li>
                                     ))}
                                 </ul>

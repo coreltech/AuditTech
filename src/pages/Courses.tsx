@@ -148,17 +148,17 @@ export function Courses() {
     return (
         <div className="max-w-6xl mx-auto">
             {/* Header */}
-            <div className="flex justify-between items-center mb-8">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
                 <div>
-                    <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Cursos</h1>
-                    <p className="text-slate-500 mt-1">Gestiona los periodos formativos y su estado.</p>
+                    <h1 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">Cursos</h1>
+                    <p className="text-sm text-slate-500 mt-1">Gestiona los periodos formativos y su estado.</p>
                 </div>
                 <button
                     onClick={() => setIsModalOpen(true)}
-                    className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-medium transition-all shadow-sm hover:shadow-md active:scale-[0.98]"
+                    className="w-full sm:w-auto flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl font-semibold transition-all shadow-sm hover:shadow-md active:scale-[0.98]"
                 >
                     <Plus className="w-5 h-5" />
-                    <span className="hidden sm:inline">Nuevo Curso</span>
+                    <span>Nuevo Curso</span>
                 </button>
             </div>
 
@@ -178,52 +178,52 @@ export function Courses() {
                 ) : (
                     <div className="divide-y divide-slate-100">
                         {courses.map(course => (
-                            <div key={course.id} className="p-6 hover:bg-slate-50 transition-colors flex items-center justify-between group cursor-pointer">
-                                <div className="flex items-start gap-4">
-                                    <div className={`p-3 rounded-xl mt-1 ${course.status === 'activo' ? 'bg-green-100 text-green-600' : 'bg-slate-100 text-slate-500'}`}>
-                                        <BookOpen className="w-6 h-6" />
+                            <div key={course.id} className="p-4 md:p-6 hover:bg-slate-50 transition-colors flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 group cursor-pointer border-b border-slate-100 last:border-0">
+                                <div className="flex items-start gap-3 md:gap-4 w-full">
+                                    <div className={`p-2.5 md:p-3 rounded-xl mt-1 shrink-0 ${course.status === 'activo' ? 'bg-green-100 text-green-600' : 'bg-slate-100 text-slate-500'}`}>
+                                        <BookOpen className="w-5 h-5 md:w-6 md:h-6" />
                                     </div>
-                                    <div>
-                                        <div className="flex items-center gap-3 mb-1">
-                                            <h3 className="text-lg font-bold text-slate-900">{course.name}</h3>
-                                            <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold uppercase tracking-wide ${course.status === 'activo' ? 'bg-green-100 text-green-700' : 'bg-slate-100 text-slate-600'
+                                    <div className="min-w-0 flex-1">
+                                        <div className="flex flex-wrap items-center gap-2 mb-1">
+                                            <h3 className="text-base md:text-lg font-bold text-slate-900 truncate">{course.name}</h3>
+                                            <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide ${course.status === 'activo' ? 'bg-green-100 text-green-700' : 'bg-slate-100 text-slate-600'
                                                 }`}>
                                                 {course.status}
                                             </span>
                                         </div>
-                                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm text-slate-500">
+                                        <div className="flex flex-col gap-1.5 text-xs md:text-sm text-slate-500">
                                             {course.day_of_week && (
                                                 <div className="flex items-center gap-1.5 font-medium text-slate-700">
                                                     <span>{course.day_of_week} ({course.schedule})</span>
-                                                    <span className="text-slate-300">•</span>
-                                                    <span>{course.duration_weeks} semanas</span>
+                                                    <span className="text-slate-300 hidden sm:inline">•</span>
+                                                    <span className="hidden sm:inline">{course.duration_weeks} semanas</span>
                                                 </div>
                                             )}
                                             <div className="flex items-center gap-1.5">
-                                                <Calendar className="w-4 h-4 text-slate-400" />
-                                                <span>
-                                                    {format(parseISO(course.start_date), "dd MMM yyyy", { locale: es })} — {format(parseISO(course.end_date), "dd MMM yyyy", { locale: es })}
+                                                <Calendar className="w-3.5 h-3.5 text-slate-400" />
+                                                <span className="truncate">
+                                                    {format(parseISO(course.start_date), "dd MMM yy", { locale: es })} — {format(parseISO(course.end_date), "dd MMM yy", { locale: es })}
                                                 </span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <div className="flex items-center justify-end gap-2 w-full sm:w-auto mt-2 sm:mt-0 pt-3 sm:pt-0 border-t sm:border-t-0 border-slate-50 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
                                     <button
                                         onClick={(e) => { e.stopPropagation(); openEditModal(course); }}
-                                        className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                        className="flex-1 sm:flex-none p-2.5 flex justify-center items-center text-blue-600 bg-blue-50 sm:bg-transparent hover:bg-blue-100 sm:hover:bg-blue-50 rounded-xl transition-colors"
                                         title="Editar curso"
                                     >
                                         <Pencil className="w-5 h-5" />
                                     </button>
                                     <button
                                         onClick={(e) => { e.stopPropagation(); handleDeleteCourse(course.id); }}
-                                        className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                                        className="flex-1 sm:flex-none p-2.5 flex justify-center items-center text-red-500 bg-red-50 sm:bg-transparent hover:bg-red-100 sm:hover:bg-red-50 rounded-xl transition-colors"
                                         title="Eliminar curso"
                                     >
                                         <Trash2 className="w-5 h-5" />
                                     </button>
-                                    <ChevronRight className="w-5 h-5 text-slate-400 ml-2" />
+                                    <ChevronRight className="hidden sm:block w-5 h-5 text-slate-400 ml-2" />
                                 </div>
                             </div>
                         ))}
