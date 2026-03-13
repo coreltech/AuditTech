@@ -3,7 +3,7 @@ import { supabase } from '../lib/supabase';
 import type { ClassSession, Course } from '../types';
 import { Search, Calendar, Clock, BookOpen, Trash2, Pencil, AlertCircle, FileText } from 'lucide-react';
 import { format, parseISO } from 'date-fns';
-import { es } from 'date-fns/locale';
+
 
 export function History() {
     const [classes, setClasses] = useState<ClassSession[]>([]);
